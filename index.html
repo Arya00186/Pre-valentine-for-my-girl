@@ -16,21 +16,6 @@
     overflow: hidden;
   }
 
-  /* Floating hearts */
-  .heart {
-    position: absolute;
-    bottom: -20px;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-    opacity: 0.6;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0); opacity: 0 }
-    50% { opacity: 0.8 }
-    100% { transform: translateY(-110vh); opacity: 0 }
-  }
-
   .card {
     background: #fff;
     width: 420px;
@@ -49,18 +34,13 @@
 
   h2 {
     color: #ff4d6d;
-    margin-bottom: 10px;
-  }
-
-  p.subtitle {
-    font-size: 13px;
-    color: #777;
     margin-bottom: 15px;
+    font-weight: 600;
   }
 
   .roast {
     color: #ff4d6d;
-    margin: 6px 0;
+    margin: 7px 0;
     font-size: 14px;
     animation: fade 0.4s;
   }
@@ -77,7 +57,7 @@
   }
 
   button {
-    padding: 10px 24px;
+    padding: 10px 26px;
     border-radius: 30px;
     border: none;
     cursor: pointer;
@@ -90,21 +70,24 @@
     background: linear-gradient(135deg,#ff4d6d,#ff758f);
     color: white;
     left: 70px;
-    box-shadow: 0 10px 25px rgba(255,77,109,.4);
   }
 
   #no {
-    background: #222;
+    background: #111;
     color: white;
     right: 70px;
   }
 
-  img {
-    width: 100%;
-    margin-top: 18px;
-    display: none;
-    border-radius: 12px;
-    animation: pop 0.5s;
+  .final-big {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  .final-small {
+    font-size: 12px;
+    color: crimson;
+    margin-top: 4px;
   }
 </style>
 </head>
@@ -112,8 +95,7 @@
 <body>
 
 <div class="card">
-  <h2>Divya 💖</h2>
-  <p class="subtitle">Will you be my Valentine?</p>
+  <h2>Heyy Divya, will you be anyone’s Valentine? 💖</h2>
 
   <div id="roastContainer"></div>
 
@@ -121,39 +103,30 @@
     <button id="yes">Yes 💕</button>
     <button id="no">No 🙈</button>
   </div>
-
-  <img id="meme" src="https://i.imgflip.com/7k2e8y.jpg">
 </div>
-
-<audio id="yesSound" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
-<audio id="noSound" src="https://www.fesliyanstudios.com/play-mp3/4386"></audio>
 
 <script>
   const roasts = [
-    "Awww… but Divya, you’re still single 🥺",
-    "Your crush thinks you’re just ‘nice’ 😭",
-    "You flirt in your head more than real life 💭",
-    "Your phone knows more about you than anyone else 📱",
-    "Even Spotify knows your love mood better 🎧",
-    "You say ‘I’m not ready’ but you are 👀",
-    "Low-key romantic, high-key single 💀",
-    "Self-love era but waiting for love 💖",
-    "Okay okay… this button is lying 😌"
+    "Hmm… confident choice 👀",
+    "But Divya, you’ve been single for a while 😌",
+    "You enjoy your own company a little too much",
+    "Low effort flirting, high standards though",
+    "You act unavailable but you’re just comfortable",
+    "Your love life is peaceful… maybe too peaceful",
+    "Independent, strong, and single by choice (maybe)",
+    "Okay okay… this is getting interesting 😏"
   ];
 
   let index = 0;
   const roastContainer = document.getElementById("roastContainer");
   const yesBtn = document.getElementById("yes");
-  const meme = document.getElementById("meme");
-  const yesSound = document.getElementById("yesSound");
-  const noSound = document.getElementById("noSound");
 
   yesBtn.onclick = () => {
-    yesSound.play();
     if (index < roasts.length) {
       typeText(roasts[index]);
       index++;
 
+      // Yes button teasing movement
       if (index > 3) {
         yesBtn.style.left = Math.random() * 240 + "px";
         yesBtn.style.top = Math.random() * 35 + "px";
@@ -162,12 +135,10 @@
   };
 
   document.getElementById("no").onclick = () => {
-    noSound.play();
     roastContainer.innerHTML = `
-      <p class="roast">You chose No, Divya 💕</p>
-      <p class="roast">But you’ll still be loved 😌</p>
+      <div class="final-big">You make the best choice</div>
+      <div class="final-small">You have no other choice</div>
     `;
-    meme.style.display = "block";
   };
 
   function typeText(text) {
@@ -181,17 +152,6 @@
       if (i === text.length) clearInterval(t);
     }, 28);
   }
-
-  // Floating hearts generator
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 7000);
-  }, 500);
 </script>
 
 </body>
