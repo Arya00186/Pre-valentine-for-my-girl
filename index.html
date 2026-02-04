@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 0 }
+    50% { opacity: 0.8 }
+    100% { transform: translateY(-110vh); opacity: 0 }
+  }
+
+  .card {
+    background: #fff;
+    width: 420px;
+    padding: 35px;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(255,0,100,.25);
+    animation: pop 0.6s ease;
+    z-index: 10;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.85); opacity: 0 }
+    to { transform: scale(1); opacity: 1 }
+  }
+
+  h2 {
+    color: #ff4d6d;
+    margin-bottom: 10px;
+  }
+
+  p.subtitle {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 15px;
+  }
+
+  .roast {
+    color: #ff4d6d;
+    margin: 6px 0;
+    font-size: 14px;
+    animation: fade 0.4s;
+  }
+
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(8px) }
+    to { opacity: 1; transform: translateY(0) }
+  }
+
+  .btns {
+    margin-top: 25px;
+    position: relative;
+    height: 70px;
+  }
+
+  button {
+    padding: 10px 24px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    transition: 0.3s;
+  }
+
+  #yes {
+    background: linear-gradient(135deg,#ff4d6d,#ff758f);
+    color: white;
+    left: 70px;
+    box-shadow: 0 10px 25px rgba(255,77,109,.4);
+  }
+
+  #no {
+    background: #222;
+    color: white;
+    right: 70px;
+  }
+
+  img {
+    width: 100%;
+    margin-top: 18px;
+    display: none;
+    border-radius: 12px;
+    animation: pop 0.5s;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Divya 💖</h2>
+  <p class="subtitle">Will you be my Valentine?</p>
+
+  <div id="roastContainer"></div>
+
+  <div class="btns">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 🙈</button>
+  </div>
+
+  <img id="meme" src="https://i.imgflip.com/7k2e8y.jpg">
+</div>
+
+<audio id="yesSound" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+<audio id="noSound" src="https://www.fesliyanstudios.com/play-mp3/4386"></audio>
+
+<script>
+  const roasts = [
+    "Awww… but Divya, you’re still single 🥺",
+    "Your crush thinks you’re just ‘nice’ 😭",
+    "You flirt in your head more than real life 💭",
+    "Your phone knows more about you than anyone else 📱",
+    "Even Spotify knows your love mood better 🎧",
+    "You say ‘I’m not ready’ but you are 👀",
+    "Low-key romantic, high-key single 💀",
+    "Self-love era but waiting for love 💖",
+    "Okay okay… this button is lying 😌"
+  ];
+
+  let index = 0;
+  const roastContainer = document.getElementById("roastContainer");
+  const yesBtn = document.getElementById("yes");
+  const meme = document.getElementById("meme");
+  const yesSound = document.getElementById("yesSound");
+  const noSound = document.getElementById("noSound");
+
+  yesBtn.onclick = () => {
+    yesSound.play();
+    if (index < roasts.length) {
+      typeText(roasts[index]);
+      index++;
+
+      if (index > 3) {
+        yesBtn.style.left = Math.random() * 240 + "px";
+        yesBtn.style.top = Math.random() * 35 + "px";
+      }
+    }
+  };
+
+  document.getElementById("no").onclick = () => {
+    noSound.play();
+    roastContainer.innerHTML = `
+      <p class="roast">You chose No, Divya 💕</p>
+      <p class="roast">But you’ll still be loved 😌</p>
+    `;
+    meme.style.display = "block";
+  };
+
+  function typeText(text) {
+    const p = document.createElement("p");
+    p.className = "roast";
+    roastContainer.appendChild(p);
+    let i = 0;
+    const t = setInterval(() => {
+      p.textContent += text[i];
+      i++;
+      if (i === text.length) clearInterval(t);
+    }, 28);
+  }
+
+  // Floating hearts generator
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }, 500);
+</script>
+
+</body>
+</html>
